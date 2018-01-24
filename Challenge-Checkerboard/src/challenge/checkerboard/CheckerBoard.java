@@ -8,6 +8,7 @@ package challenge.checkerboard;
 import java.awt.Color;
 import java.util.ArrayList;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -32,6 +33,8 @@ public class CheckerBoard {
 
     public CheckerBoard(int numRows, int numCols, double boardWidth, double boardHeight) {
         initialize(numRows, numCols, boardWidth, boardHeight);
+        this.colorLight = DEFAULT_COLOR_A;
+        this.colorDark = DEFAULT_COLOR_B;
     }
 
     public CheckerBoard(int numRows, int numCols, double boardWidth, double boardHeight, Color lightColor, Color darkColor) {
@@ -41,6 +44,8 @@ public class CheckerBoard {
     }
 
     private void initialize(int numRows, int numCols, double boardWidth, double boardHeight) {
+        gridType = 2;
+        this.switchType();
         this.rows = numRows;
         this.cols = numCols;
         this.width = boardWidth;
@@ -67,14 +72,14 @@ public class CheckerBoard {
     public void build() {
         root = new AnchorPane();
         rectangles = new ArrayList();
-        
-        root.setMinSize(600, 600); 
-        this.width = root.getMinWidth();
-        this.height = root.getMinHeight();
+        root.setMinSize(600, 600);
+
+        this.width = 600;
+        this.height = 600;
         this.setupRectangles();
     }
-    
-    public AnchorPane getRoot(){
+
+    public AnchorPane getRoot() {
         return root;
     }
 
@@ -133,39 +138,49 @@ public class CheckerBoard {
     }
 
     public double getRectangleWidth() {
-        return width/dimension;
+        return width / dimension;
     }
 
     public double getRectangleHeight() {
-        return width/height;
+        return width / height;
     }
 
 //getNumRows(), getNumCols(), getWidth(), getHeight(), getLightColor(), getDarkColor(), getRectangleWidth(), getRectangleHeight()
-    
     //////////////////////////////////
-    
-    private void addRectangle(int row, int col){
-        double x = width/dimension * row;
-        double y = height/dimension * col;
-        
+    private void addRectangle(int row, int col) {
+        double x = width / dimension * row;
+        double y = height / dimension * col;
+
         Rectangle hold = new Rectangle();
         hold.setX(x);
         hold.setY(y);
-        hold.setWidth(width/dimension);
-        hold.setHeight(height/dimension);
-        
+        hold.setWidth(width / dimension);
+        hold.setHeight(height / dimension);
+
         rectangles.add(hold);
     }
-    
-    private void setupRectangles(){
-        for(int i = 0; i < dimension; i++){
-            for(int k = 0; k < dimension; k++){
-                addRectangle(i,k);
+
+    private void setupRectangles() {
+        for (int i = 0; i < dimension; i++) {
+            for (int k = 0; k < dimension; k++) {
+                addRectangle(i, k);
             }
         }
-        for(Rectangle curr : rectangles){
+        int i = 0;
+        for (Rectangle curr : rectangles) {
+            if (i % 2 == 0) {
+                curr.setFill(Paint.valueOf("red"));
+                System.out.println("Red " + i);
+            } else {
+                curr.setFill(Paint.valueOf("black"));
+                System.out.println("Black " + i);
+            }
+            i++;
+            if(i%dimension == 0){
+                i++;
+            }
             root.getChildren().add(curr);
         }
     }
-    
+
 }
