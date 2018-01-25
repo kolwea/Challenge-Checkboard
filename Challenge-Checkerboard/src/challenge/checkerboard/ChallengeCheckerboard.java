@@ -6,12 +6,8 @@
 package challenge.checkerboard;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -24,11 +20,11 @@ public class ChallengeCheckerboard extends Application {
     public void start(Stage primaryStage) {
         
         AnchorPane root;
-        CheckerBoard board = new CheckerBoard(12,12,123,112);
+        CheckerBoardV2 board = new CheckerBoardV2(10,10,500,500);
         board.build();
-        root = board.getRoot();
+        root = board.getBoard();
         
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, board.getWidth(), board.getHeight());
 
         primaryStage.setScene(scene);
         primaryStage.show();

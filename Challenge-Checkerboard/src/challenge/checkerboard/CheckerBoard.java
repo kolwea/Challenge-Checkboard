@@ -166,20 +166,26 @@ public class CheckerBoard {
                 addRectangle(i, k);
             }
         }
+        
         int i = 0;
-        for (Rectangle curr : rectangles) {
-            if (i % 2 == 0) {
-                curr.setFill(Paint.valueOf("red"));
-                System.out.println("Red " + i);
-            } else {
-                curr.setFill(Paint.valueOf("black"));
-                System.out.println("Black " + i);
-            }
-            i++;
-            if(i%dimension == 0){
-                i++;
-            }
+        boolean alt;
+
+        for (int j = 0; j < rectangles.size(); j++) {
+            Rectangle curr = rectangles.get(j);
+            //add rectangle to scene
             root.getChildren().add(curr);
+
+            //alternate rectangle color;
+            Paint light = Paint.valueOf(colorLight.toString());
+            Paint dark = Paint.valueOf(colorDark.toString());
+         
+            if (i % 2 == 0) {
+                curr.setFill(light);
+            } else {
+                curr.setFill(dark);
+            }
+
+
         }
     }
 
